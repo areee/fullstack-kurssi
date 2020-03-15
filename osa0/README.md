@@ -10,4 +10,4 @@
 
 ## Tehtävä 0.6: Uusi muistiinpano
 
-![alt text](https://raw.githubusercontent.com/areee/fullstack-kurssi/master/osa0/tehtava0_5.png "Tehtävä 0.6")
+![alt text](https://raw.githubusercontent.com/areee/fullstack-kurssi/master/osa0/tehtava0_6_fixed.png "Tehtävä 0.6")

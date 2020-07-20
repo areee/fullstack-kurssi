@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import Persons from './components/Persons'
+import PersonForm from './components/PersonForm'
 import axios from 'axios'
 
-const PersonForm = ({ addPerson, newName, handleNameChange, newNumber, handleNumberChange }) => {
-  return (
-    <div>
-      <form onSubmit={addPerson}>
-        <div>name: <input value={newName} onChange={handleNameChange} /></div>
-        <div>number: <input value={newNumber} onChange={handleNumberChange} /></div>
-        <div><button type="submit">add</button></div>
-      </form>
-    </div>
-  )
-}
+// const PersonForm = ({ addPerson, newName, handleNameChange, newNumber, handleNumberChange }) => {
+//   return (
+//     <div>
+//       <form onSubmit={addPerson}>
+//         <div>name: <input value={newName} onChange={handleNameChange} /></div>
+//         <div>number: <input value={newNumber} onChange={handleNumberChange} /></div>
+//         <div><button type="submit">add</button></div>
+//       </form>
+//     </div>
+//   )
+// }
 
 const App = () => {
   const [persons, setPersons] = useState([])

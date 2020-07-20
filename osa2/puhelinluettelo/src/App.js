@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import Filter from './components/Filter'
 import axios from 'axios'
-
-const Filter = ({ handleFilterChange }) => (
-  <div>
-    filter shown with <input onChange={handleFilterChange} />
-  </div>
-)
 
 const Persons = ({ filteredPersons }) => (
   <div>

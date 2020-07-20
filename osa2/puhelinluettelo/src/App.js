@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
+import Persons from './components/Persons'
 import axios from 'axios'
-
-const Persons = ({ filteredPersons }) => (
-  <div>
-    {filteredPersons.map((person, i) =>
-      <p key={i}>{person.name} {person.number}</p>
-    )}
-  </div>
-)
 
 const PersonForm = ({ addPerson, newName, handleNameChange, newNumber, handleNumberChange }) => {
   return (

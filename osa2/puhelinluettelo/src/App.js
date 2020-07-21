@@ -50,7 +50,11 @@ const App = () => {
   }
 
   const deletePersonWith = id => {
-    console.log(`DEBUG: do you mean '${id}' id?`)
+    const person = persons.find(n => n.id === id)
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService.deletePerson(id)
+      setPersons(persons.filter(n => n.id !== id))
+    }
   }
 
   const filteredPersons = filter.length === 0

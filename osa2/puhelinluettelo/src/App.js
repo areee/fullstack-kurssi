@@ -49,6 +49,10 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  const deletePersonWith = id => {
+    console.log(`DEBUG: do you mean '${id}' id?`)
+  }
+
   const filteredPersons = filter.length === 0
     ? persons
     : persons.filter(person => person.name.toUpperCase().includes(filter.toUpperCase()))
@@ -70,7 +74,14 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons filteredPersons={filteredPersons} />
+      {filteredPersons.map((person, i) =>
+        <Persons
+          key={i}
+          person={person}
+          deleteSelectedPerson={() => deletePersonWith(person.id)}
+        />
+      )}
+
     </div>
   )
 

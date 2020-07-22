@@ -21,7 +21,13 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     if (persons.some(e => e.name === newName)) {
-      window.alert(`${newName} is already added to phonebook`)
+      //window.alert(`${newName} is already added to phonebook`)
+      
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const person = persons.find(n => n.name === newName);
+        console.log(`DEBUG: found a person with ${person.id} id`)
+      }
+
     } else {
       const personObject = {
         name: newName,

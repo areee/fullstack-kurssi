@@ -21,13 +21,18 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     if (persons.some(e => e.name === newName)) {
-      //window.alert(`${newName} is already added to phonebook`)
-      
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        const person = persons.find(n => n.name === newName);
-        console.log(`DEBUG: found a person with ${person.id} id`)
-      }
+        const person = persons.find(n => n.name === newName) // the original one in the server
+        const changedPerson = { ...person, number: newNumber } // the changed one
 
+        personService
+          .update(person.id, changedPerson).then(returnedPerson => {
+            setPersons(persons.map(person2 => person2.id !== person.id ? person2 : returnedPerson))
+          })
+          .catch(error => {
+            console.log(`DEBUG error: ${error}`)
+          })
+      }
     } else {
       const personObject = {
         name: newName,

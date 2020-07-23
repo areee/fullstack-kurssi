@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Notification from './components/Notification'
+import Error from './components/Error'
 import personService from './services/puhelinluettelo'
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
         personService
           .update(person.id, changedPerson).then(returnedPerson => {
             setInfoMessage(
-              `INFO_Updated ${returnedPerson.name}`
+              `Updated ${returnedPerson.name}`
             )
             setTimeout(() => {
               setInfoMessage(null)
@@ -39,8 +40,13 @@ const App = () => {
             setPersons(persons.map(person2 => person2.id !== person.id ? person2 : returnedPerson))
           })
           .catch(error => {
-            // DEBUG
-            console.log(`Information of ${person.name} has already been removed from server`)
+            setErrorMessage(
+              `Information of ${person.name} has already been removed from server`
+            )
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+            setPersons(persons.filter(n => n.id !== person.id))
           })
       }
     } else {
@@ -52,7 +58,7 @@ const App = () => {
         .create(personObject)
         .then(returnedPerson => {
           setInfoMessage(
-            `INFO_Added ${returnedPerson.name}`
+            `Added ${returnedPerson.name}`
           )
           setTimeout(() => {
             setInfoMessage(null)
@@ -81,7 +87,7 @@ const App = () => {
     if (window.confirm(`Delete ${person.name}?`)) {
       personService.deletePerson(id)
       setInfoMessage(
-        `INFO_Deleted ${person.name}`
+        `Deleted ${person.name}`
       )
       setTimeout(() => {
         setInfoMessage(null)
@@ -98,6 +104,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={infoMessage} />
+      <Error message={errorMessage} />
       <Filter handleFilterChange={handleFilterChange} />
 
       <h3>Add a new</h3>

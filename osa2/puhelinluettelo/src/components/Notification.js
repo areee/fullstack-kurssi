@@ -5,9 +5,19 @@ const Notification = ({ message }) => {
         return null
     }
 
+    const words = message.split('_')
+
+    if (words[0].equals('INFO')) {
+        return (
+            <div className="info">
+                {words[1]}
+            </div>
+        )
+    }
+
     return (
-        <div className="info">
-            {message}
+        <div className="error">
+            {words[1]}
         </div>
     )
 }

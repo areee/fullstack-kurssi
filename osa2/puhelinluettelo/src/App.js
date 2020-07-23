@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [infoMessage, setInfoMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -30,7 +31,7 @@ const App = () => {
         personService
           .update(person.id, changedPerson).then(returnedPerson => {
             setInfoMessage(
-              `Updated ${returnedPerson.name}`
+              `INFO_Updated ${returnedPerson.name}`
             )
             setTimeout(() => {
               setInfoMessage(null)
@@ -38,7 +39,8 @@ const App = () => {
             setPersons(persons.map(person2 => person2.id !== person.id ? person2 : returnedPerson))
           })
           .catch(error => {
-            console.log(`DEBUG error: ${error}`)
+            // DEBUG
+            console.log(`Information of ${person.name} has already been removed from server`)
           })
       }
     } else {
@@ -50,7 +52,7 @@ const App = () => {
         .create(personObject)
         .then(returnedPerson => {
           setInfoMessage(
-            `Added ${returnedPerson.name}`
+            `INFO_Added ${returnedPerson.name}`
           )
           setTimeout(() => {
             setInfoMessage(null)
@@ -79,7 +81,7 @@ const App = () => {
     if (window.confirm(`Delete ${person.name}?`)) {
       personService.deletePerson(id)
       setInfoMessage(
-        `Deleted ${person.name}`
+        `INFO_Deleted ${person.name}`
       )
       setTimeout(() => {
         setInfoMessage(null)

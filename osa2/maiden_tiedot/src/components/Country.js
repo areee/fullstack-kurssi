@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Country = ({ country, currentWeather, setCurrentWeather }) => {
-    const api_key = process.env.REACT_APP_API_KEY
+    //const api_key = process.env.REACT_APP_API_KEY
     //console.log('api key', api_key)
     //let weather1 = ''
     useEffect(() => {

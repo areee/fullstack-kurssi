@@ -1,46 +1,81 @@
 import React, { useState, useEffect } from 'react'
-//import Filter from './components/Filter'
+import countryService from './services/countries'
+import Filter from './components/Filter'
+import Countries from './components/Countries'
+// import Result from './components/Result'
 //import Country from './components/Country'
-//import Result from './components/Result'
-import axios from 'axios'
+
 
 const App = () => {
-  // const [countries, setCountries] = useState([])
-  // const [filter, setFilter] = useState('')
+  const [countries, setCountries] = useState([])
+  const [filter, setFilter] = useState('')
   // const [currentWeather, setCurrentWeather] = useState('')
 
-  // useEffect(() => {
-  //   console.log('effect')
-  //   axios
-  //     .get('https://restcountries.eu/rest/v2/all')
-  //     .then(response => {
-  //       console.log('promise fulfilled')
-  //       setCountries(response.data)
-  //     })
+  useEffect(() => {
+    countryService
+      .getAll()
+      .then(initialCountries => {
+        setCountries(initialCountries)
+      })
+  }, [])
 
-  // }, [])
-  // console.log('render', countries.length, 'countries')
+  console.log('DEBUG: render', countries.length, 'countries')
 
-  // const handleFilterChange = (event) => {
-  //   setFilter(event.target.value)
-  // }
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value)
+  }
+
+  const filteredCountries = filter.length === 0
+  ? countries
+  : countries.filter(country => country.name.toUpperCase().includes(filter.toUpperCase()))
 
   // const filteredCountries = countries.filter(country => country.name.toUpperCase().includes(filter.toUpperCase()))
-  // console.log('based on filter, showing', filteredCountries.length, 'countries')
+  console.log('DEBUG: based on filter, showing', filteredCountries.length, 'countries')
 
   // console.log('filter', { filter })
 
   const api_key = process.env.REACT_APP_API_KEY
   console.log('api key', api_key)
 
+  if (filteredCountries.length > 10) {
+    return (
+      <div>
+        <Filter handleFilterChange={handleFilterChange} />
+        <p>Too many matches, specify another filter</p>
+      </div>
+    )
+  } else if (filteredCountries.length > 1) {
+    return (
+      <div>
+        <Filter handleFilterChange={handleFilterChange} />
+        {
+          filteredCountries.map((country, i) =>
+            <Countries
+              key={i}
+              country={country}
+            />
+          )
+        }
+        {/* <Result filteredCountries={filteredCountries} /> */}
+        {/* <Result filteredCountries={filteredCountries} setFilter={setFilter} currentWeather={currentWeather} setCurrentWeather={setCurrentWeather} /> */}
+      </div>
+    )
+  } else if (filteredCountries.length === 1) {
+    return (
+      <div>
+        <Filter handleFilterChange={handleFilterChange} />
+        <p>
+          {filteredCountries[0].name}
+          {/* <Country country={filteredCountries[0]} currentWeather={currentWeather} setCurrentWeather={setCurrentWeather} /> */}
+        </p>
+      </div>
+    )
+  }
   return (
     <div>
-      <p>Moi maailma</p>
-
-      {/* <Filter handleFilterChange={handleFilterChange} />
-      <Result filteredCountries={filteredCountries} setFilter={setFilter} currentWeather={currentWeather} setCurrentWeather={setCurrentWeather} /> */}
+        No countries
     </div>
-  )
+)
 }
 
 export default App;

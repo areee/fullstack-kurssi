@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import countryService from './services/countries'
+import weatherService from './services/weather'
 import Filter from './components/Filter'
 import Countries from './components/Countries'
 import Country from './components/Country'
+import Weather from './components/Weather'
 // import Result from './components/Result'
 
 
@@ -11,6 +13,7 @@ const App = () => {
   const [countries, setCountries] = useState([])
   const [filter, setFilter] = useState('')
   // const [currentWeather, setCurrentWeather] = useState('')
+  const [weatherInfo, setWeatherInfo] = useState([])
 
   useEffect(() => {
     countryService
@@ -73,6 +76,20 @@ const App = () => {
         <Filter handleFilterChange={handleFilterChange} />
         <Country country={filteredCountries[0]}/>
         
+        {
+          
+            weatherService
+              .getWeather(api_key, filteredCountries[0].capital)
+              .then(initialWeather => {
+                setWeatherInfo(initialWeather)
+              })
+          
+        }
+
+        {
+          console.log('weather:', weatherInfo)
+        }
+
           {/* <Country country={filteredCountries[0]} currentWeather={currentWeather} setCurrentWeather={setCurrentWeather} /> */}
         
       </div>

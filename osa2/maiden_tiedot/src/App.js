@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import countryService from './services/countries'
 import Filter from './components/Filter'
 import Countries from './components/Countries'
+import Country from './components/Country'
 // import Result from './components/Result'
-//import Country from './components/Country'
+
 
 
 const App = () => {
@@ -64,16 +65,17 @@ const App = () => {
     return (
       <div>
         <Filter handleFilterChange={handleFilterChange} />
-        <p>
-          {filteredCountries[0].name}
+        <Country country={filteredCountries[0]}/>
+        
           {/* <Country country={filteredCountries[0]} currentWeather={currentWeather} setCurrentWeather={setCurrentWeather} /> */}
-        </p>
+        
       </div>
     )
   }
   return (
     <div>
-        No countries
+      <Filter handleFilterChange={handleFilterChange} />
+      <p>No countries</p>
     </div>
 )
 }

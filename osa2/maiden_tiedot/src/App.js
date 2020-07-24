@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import countryService from './services/countries'
-import weatherService from './services/weather'
+// import weatherService from './services/weather'
 import Filter from './components/Filter'
 import Countries from './components/Countries'
 import Country from './components/Country'
@@ -13,7 +13,7 @@ const App = () => {
   const [countries, setCountries] = useState([])
   const [filter, setFilter] = useState('')
   // const [currentWeather, setCurrentWeather] = useState('')
-  const [weatherInfo, setWeatherInfo] = useState([])
+  // const [weatherInfo, setWeatherInfo] = useState('')
 
   useEffect(() => {
     countryService
@@ -37,6 +37,10 @@ const App = () => {
     console.log(`DEBUG: selected country: ${name}`)
     setFilter(name)
   }
+
+  // const showWeatherInfo = capital => {
+  //   console.log('DEBUG 1: ', capital)
+  // }
 
   // const filteredCountries = countries.filter(country => country.name.toUpperCase().includes(filter.toUpperCase()))
   console.log('DEBUG: based on filter, showing', filteredCountries.length, 'countries')
@@ -75,19 +79,33 @@ const App = () => {
       <div>
         <Filter handleFilterChange={handleFilterChange} />
         <Country country={filteredCountries[0]}/>
-        
-        {
-          
+        <Weather weatherInfo={filteredCountries[0].capital} apiKey={api_key} />
+        {/* {
+
+          // useEffect(() => {
             weatherService
               .getWeather(api_key, filteredCountries[0].capital)
               .then(initialWeather => {
-                setWeatherInfo(initialWeather)
+
+                console.log(initialWeather)
+
+                // setWeatherInfo(initialWeather)
               })
-          
-        }
+          // }, [])
+
+          // weatherService
+          //   .getWeather(api_key, filteredCountries[0].capital)
+          //   .then(initialWeather => {
+
+          //     console.log(initialWeather)
+
+          //     //setWeatherInfo(initialWeather)
+          //   })
+
+        } */}
 
         {
-          console.log('weather:', weatherInfo)
+          // console.log('weather: ', weatherInfo)
         }
 
           {/* <Country country={filteredCountries[0]} currentWeather={currentWeather} setCurrentWeather={setCurrentWeather} /> */}

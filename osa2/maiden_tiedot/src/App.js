@@ -30,6 +30,11 @@ const App = () => {
   ? countries
   : countries.filter(country => country.name.toUpperCase().includes(filter.toUpperCase()))
 
+  const showSelectedCountry = name => {
+    console.log(`DEBUG: selected country: ${name}`)
+    setFilter(name)
+  }
+
   // const filteredCountries = countries.filter(country => country.name.toUpperCase().includes(filter.toUpperCase()))
   console.log('DEBUG: based on filter, showing', filteredCountries.length, 'countries')
 
@@ -54,6 +59,7 @@ const App = () => {
             <Countries
               key={i}
               country={country}
+              showSelectedCountry={() => showSelectedCountry(country.name)}
             />
           )
         }

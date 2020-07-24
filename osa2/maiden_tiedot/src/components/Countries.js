@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Countries = ({ country }) => (
+const Countries = ({ country, showSelectedCountry }) => (
     <p>
-        {country.name}
+        {country.name} <button onClick={showSelectedCountry}>show</button>
     </p>
 )
 
